@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+    <title>Impostos Grupo R9</title>
+    <style>
+    /* Estilize o corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+/* Estilize os cabeçalhos */
+h1 {
+    text-align: center;
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+/* Estilize as caixas das empresas e posicione as três lado a lado */
+.empresa {
+    width: calc(31% - 10px); /* Dividir a largura em 3 colunas com margens */
+    margin: 10px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    vertical-align: top; /* Alinhar no topo para garantir que estejam niveladas */
+    display: inline-block;
+    box-sizing: border-box; /* Evitar que as margens adicionem espaço extra */
+}
+
+/* Estilize os campos de entrada e botões dentro das empresas */
+.empresa label {
+    display: block;
+    margin-top: 10px;
+}
+
+.empresa input[type="month"],
+.empresa input[type="number"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.empresa button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Estilize as tabelas */
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+table caption {
+    font-weight: bold;
+    text-align: center;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+
+/* Estilize as células de cabeçalho */
+table th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Estilize as células de dados alternadas */
+table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Estilize as células de dados quando passa o mouse */
+table tbody tr:hover {
+    background-color: #ddd;
+}
+</style>
+</head>
+<body>
+    <h1>Impostos Grupo R9</h1>
+
+    <div class="empresa">
+        <h2>DESIGN FUTON E-COMMERCE ORIENTAL LTDA</h2>
+        <table class="tabela-empresa">
+            <caption>Faturamento dos Últimos 12 Meses</caption>
+
+            </thead>
+                <tr>
+                    <th>Mês</th>
+                    <th>Faturamento</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaEmpresa1">
+                <!-- Dados da DESIGN FUTON E-COMMERCE ORIENTAL LTDA -->
+                <tr>
+                    <td>set/22</td>
+                    <td>R$ 144.520,89</td>
+                </tr>
+                <tr>
+                    <td>out/22</td>
+                    <td>R$ 136.316,06</td>
+                </tr>
+                <tr>
+                    <td>nov/22</td>
+                    <td>R$ 236.425,39</td>
+                </tr>
+                <tr>
+                    <td>dez/22</td>
+                    <td>R$ 192.784,77</td>
+                </tr>
+                <tr>
+                    <td>jan/23</td>
+                    <td>R$ 166.685,05</td>
+                </tr>
+                <tr>
+                    <td>fev/23</td>
+                    <td>R$ 133.390,75</td>
+                </tr>
+                <tr>
+                    <td>mar/23</td>
+                    <td>R$ 157.485,91</td>
+                </tr>
+                <tr>
+                    <td>abr/23</td>
+                    <td>R$ 72.062,55</td>
+                </tr>
+                <tr>
+                    <td>mai/23</td>
+                    <td>R$ 111.261,81</td>
+                </tr>
+                <tr>
+                    <td>jun/23</td>
+                    <td>R$ 46.872,29</td>
+                </tr>
+                <tr>
+                    <td>jul/23</td>
+                    <td>R$ 144.823,05</td>
+                </tr>
+                <tr>
+                    <td>ago/23</td>
+                    <td>R$ 206.080,14</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Total</td>
+                    <td><strong id="totalEmpresa1"></strong></td>
+                </tr>
+            </tfoot>
+        </table>
+        <label for="faturamentoSimulacao1">Faturamento do Próximo Mês: </label>
+        <input type="number" id="faturamentoSimulacao1">
+        <button onclick="simularImposto(1)">Simular</button>
+        <p>Resultado da Simulação: <span id="resultadoSimulacao1"></span></p>
+    </div>
+        </table>
+    </div>
+
+    <!-- Empresa 2: YUMI ART DESIGN FUTON LTDA -->
+    <div class="empresa">
+        <h2>YUMI ART DESIGN FUTON LTDA <br><br>
+        </h2>
+        <table class="tabela-empresa">
+            <caption>Faturamento dos Últimos 12 Meses</caption>
+            <thead>
+                <tr>
+                    <th>Mês</th>
+                    <th>Faturamento</th>
+                </tr>
+            </thead>
+                
+            <tbody id="tabelaEmpresa2">
+                <!-- Dados da YUMI ART DESIGN FUTON LTDA -->
+                <tr>
+                    <td>set/22</td>
+                    <td>R$ 224.838,46</td>
+                </tr>
+                <tr>
+                    <td>out/22</td>
+                    <td>R$ 203.020,71</td>
+                </tr>
+                <tr>
+                    <td>nov/22</td>
+                    <td>R$ 257.993,18</td>
+                </tr>
+                <tr>
+                    <td>dez/22</td>
+                    <td>R$ 177.872,60</td>
+                </tr>
+                <tr>
+                    <td>jan/23</td>
+                    <td>R$ 109.231,72</td>
+                </tr>
+                <tr>
+                    <td>fev/23</td>
+                    <td>R$ 100.228,90</td>
+                </tr>
+                <tr>
+                    <td>mar/23</td>
+                    <td>R$ 99.571,97</td>
+                </tr>
+                <tr>
+                    <td>abr/23</td>
+                    <td>R$ 99.574,87</td>
+                </tr>
+                <tr>
+                    <td>mai/23</td>
+                    <td>R$ 135.305,74</td>
+                </tr>
+                <tr>
+                    <td>jun/23</td>
+                    <td>R$ 149.208,36</td>
+                </tr>
+                <tr>
+                    <td>jul/23</td>
+                    <td>R$ 122.433,15</td>
+                </tr>
+                <tr>
+                    <td>ago/23</td>
+                    <td>R$ 177.162,80</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Total</td>
+    <td><strong id="totalEmpresa2"></strong></td>
+                </tr>
+            </tfoot>
+        </table>
+        
+        <label for="faturamentoSimulacao2">Faturamento do Próximo Mês: </label>
+        <input type="number" id="faturamentoSimulacao2">
+        <button onclick="simularImposto(2)">Simular</button>
+        <p>Resultado da Simulação: <span id="resultadoSimulacao2"></span></p>
+    </div>
+    
+    <!-- Empresa 3: R9 DESIGN FUTON E-COMMERCE LTDA -->
+    <div class="empresa">
+        <h2>R9 DESIGN FUTON E-COMMERCE LTDA
+        </h2>
+        <table class="tabela-empresa">
+            <caption>Faturamento dos Últimos 12 Meses</caption>
+            <thead>
+                <tr>
+                    <th>Mês</th>
+                    <th>Faturamento</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaEmpresa3">
+                <!-- Dados da R9 DESIGN FUTON E-COMMERCE LTDA -->
+                <tr>
+                    <td>set/22</td>
+                    <td>R$ 237.000,37</td>
+                </tr>
+                <tr>
+                    <td>out/22</td>
+                    <td>R$ 292.534,69</td>
+                </tr>
+                <tr>
+                    <td>nov/22</td>
+                    <td>R$ 363.379,17</td>
+                </tr>
+                <tr>
+                    <td>dez/22</td>
+                    <td>R$ 272.071,77</td>
+                </tr>
+                <tr>
+                    <td>jan/23</td>
+                    <td>R$ 256.451,53</td>
+                </tr>
+                <tr>
+                    <td>fev/23</td>
+                    <td>R$ 230.389,75</td>
+                </tr>
+                <tr>
+                    <td>mar/23</td>
+                    <td>R$ 254.017,74</td>
+                </tr>
+                <tr>
+                    <td>abr/23</td>
+                    <td>R$ 209.250,07</td>
+                </tr>
+                <tr>
+                    <td>mai/23</td>
+                    <td>R$ 234.142,99</td>
+                </tr>
+                <tr>
+                    <td>jun/23</td>
+                    <td>R$ 247.691,37</td>
+                </tr>
+                <tr>
+                    <td>jul/23</td>
+                    <td>R$ 205.828,82</td>
+                </tr>
+                <tr>
+                    <td>ago/23</td>
+                    <td>R$ 104.404,09</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Total</td>
+                    <td><strong id="totalEmpresa3"></strong></td>
+                </tr>
+            </tfoot>
+        </table>
+        
+        <label for="faturamentoSimulacao3">Faturamento do Próximo Mês: </label>
+        <input type="number" id="faturamentoSimulacao3">
+        <button onclick="simularImposto(3)">Simular</button>
+        <p>Resultado da Simulação: <span id="resultadoSimulacao3"></span></p>
+    </div>
+
+<script>
+    // Função para calcular o imposto com base nas faixas
+function calcularImposto(valor, alquota) {
+    return valor * alquota / 100;
+}
+
+// Variável para armazenar o último valor informado
+let ultimoValorInformado = 0;
+
+// Função para simular o imposto para uma empresa específica
+function simularImposto(empresaId) {
+    // Obtenha o faturamento do próximo mês para a empresa específica
+    const inputId = `faturamentoSimulacao${empresaId}`;
+    const faturamentoProximoMes = parseFloat(document.getElementById(inputId).value);
+
+    // Valores desde outubro de 2022 até agosto de 2023 para cada empresa
+    const valoresDesdeOutubro2022 = [
+        [136316.06, 236425.39, 192784.77, 166685.05, 133390.75, 157485.91, 72062.55, 111261.81, 46872.29, 144823.05, 206080.14], // Empresa 1
+        [203020.71, 257993.18, 177872.60, 109231.72, 100228.90, 99571.97, 99574.87, 135305.74, 149208.36, 122433.15, 177162.80], // Empresa 2
+        [292534.69, 363379.17, 272071.77, 256451.53, 230389.75, 254017.74, 209250.07, 234142.99, 247691.37, 205828.82, 104404.09]  // Empresa 3
+    ];
+
+    // Soma o novo valor aos valores desde outubro de 2022 da empresa específica
+    const valoresEmpresa = valoresDesdeOutubro2022[empresaId - 1]; // Índice começa em 0, mas IDs em 1
+    const valorTotal = faturamentoProximoMes + valoresEmpresa.reduce((total, faturamento) => total + faturamento, 0);
+
+    // Calcule a faixa em que o valor total se encaixa
+    let faixa = "Fora das faixas";
+    let alquota = 0;
+    if (valorTotal <= 180000.00) {
+        faixa = "Até 180.000,00 - 4,50%";
+        alquota = 4.50;
+    } else if (valorTotal <= 360000.00) {
+        faixa = "De 180.000,01 a 360.000,00 - 7,80%";
+        alquota = 7.80;
+    } else if (valorTotal <= 720000.00) {
+        faixa = "De 360.000,01 a 720.000,00 - 10,00%";
+        alquota = 10.00;
+    } else if (valorTotal <= 1800000.00) {
+        faixa = "De 720.000,01 a 1.800.000,00 - 11,20%";
+        alquota = 11.20;
+    } else if (valorTotal <= 3600000.00) {
+        faixa = "De 1.800.000,01 a 3.600.000,00 - 14,70%";
+        alquota = 14.70;
+    } else if (valorTotal <= 4800000.00) {
+        faixa = "De 3.600.000,01 a 4.800.000,00 - 30,00%";
+        alquota = 30.00;
+    }
+
+    // Calcule o valor do imposto com base na alíquota e no último valor informado
+    const valorImposto = calcularImposto(ultimoValorInformado, alquota);
+
+    // Exiba o resultado da simulação na página
+    const resultadoId = `resultadoSimulacao${empresaId}`;
+    const resultadoSpan = document.getElementById(resultadoId);
+
+    if (!isNaN(valorTotal) && !isNaN(valorImposto)) {
+        resultadoSpan.textContent = `Valor Total: R$ ${valorTotal.toFixed(2)} - Imposto a Pagar: R$ ${valorImposto.toFixed(2)} - Faixa: ${faixa}`;
+    } else {
+        resultadoSpan.textContent = "Erro na simulação.";
+    }
+
+    // Atualize o último valor informado
+    ultimoValorInformado = faturamentoProximoMes;
+}
+
+</script>
+</body>
+</html>
