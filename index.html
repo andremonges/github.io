@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+.calculator-container {
+    text-align: center;
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+button {
+    padding: 10px;
+    background-color: #050505;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#result {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+    </style>
+    </style>
+    <title>Calculadora Novo Limite Refricril</title>
+</head>
+<body>
+    <div class="calculator-container">
+        <!-- Adicione a logo aqui -->
+        <img src="C:\Users\User\Desktop\DEV\Calculadora de liberação\Logo Refricril - Vertical - Branco.png" alt="Logo da Refricril" class="logo">
+
+        <h2>Calculadora Novo Limite Refricril</h2>
+        
+        <div class="input-group">
+            <label for="relationshipMonths">Tempo de Relacionamento (meses): </label>
+            <input type="text" id="relationshipMonths" pattern="[0-9]+([,.][0-9]+)?" required>
+        </div>
+
+        <div class="input-group">
+            <label for="limit">Limite Atual (R$): </label>
+            <input type="text" id="limit" pattern="[0-9]+([,.][0-9]+)?" required>
+        </div>
+
+        <div class="input-group">
+            <label for="settledAmount">Valor Liquidado (R$): </label>
+            <input type="text" id="settledAmount" pattern="[0-9]+([,.][0-9]+)?" required>
+        </div>
+
+        <div class="input-group">
+            <label for="outstandingAmount">Valor em Aberto (R$): </label>
+            <input type="text" id="outstandingAmount" pattern="[0-9]+([,.][0-9]+)?" required>
+        </div>
+
+        <div class="input-group">
+            <label for="latePayments">Tempo de Atraso nos Pagamentos (dias): </label>
+            <input type="text" id="latePayments" pattern="[0-9]+([,.][0-9]+)?" required>
+        </div>
+
+        <div class="input-group">
+            <label for="referenceNotes">Valores de Notas de Referência (R$): </label>
+            <input type="text" id="referenceNotes" pattern="[0-9]+([,.][0-9]+)?" required>
+        </div>
+
+        <button onclick="calculateLimit()">Calcular</button>
+
+        <p id="result"></p>
+        <p id="explanation"></p>
+    </div>
+
+    <script>
+       function calculateLimit() {
+    // Obter os valores dos inputs
+    const relationshipMonths = parseInt(document.getElementById("relationshipMonths").value.replace(",", "."));
+    const limit = parseFloat(document.getElementById("limit").value.replace(",", "."));
+    const settledAmount = parseFloat(document.getElementById("settledAmount").value.replace(",", "."));
+    const outstandingAmount = parseFloat(document.getElementById("outstandingAmount").value.replace(",", "."));
+    const latePayments = parseInt(document.getElementById("latePayments").value.replace(",", "."));
+    const referenceNotes = parseFloat(document.getElementById("referenceNotes").value.replace(",", "."));
+
+    // Calcular o novo limite
+    const { newLimit, explanation } = calculateNewLimit(relationshipMonths, limit, settledAmount, outstandingAmount, latePayments, referenceNotes);
+
+    // Exibir o resultado e explicação
+    document.getElementById("result").innerHTML = `Novo Limite: R$ ${formatCurrency(newLimit)}`;
+    document.getElementById("explanation").innerHTML = explanation;
+}
+
+function calculateLimit() {
+    // Obter os valores dos inputs
+    const relationshipMonths = parseInt(document.getElementById("relationshipMonths").value.replace(",", "."));
+    const limit = parseFloat(document.getElementById("limit").value.replace(",", "."));
+    const settledAmount = parseFloat(document.getElementById("settledAmount").value.replace(",", "."));
+    const outstandingAmount = parseFloat(document.getElementById("outstandingAmount").value.replace(",", "."));
+    const latePayments = parseInt(document.getElementById("latePayments").value.replace(",", "."));
+    const referenceNotes = parseFloat(document.getElementById("referenceNotes").value.replace(",", "."));
+
+    // Calcular o novo limite
+    const { newLimit, explanation } = calculateNewLimit(relationshipMonths, limit, settledAmount, outstandingAmount, latePayments, referenceNotes);
+
+    // Exibir o resultado e explicação
+    document.getElementById("result").innerHTML = `Novo Limite: R$ ${formatCurrency(newLimit)}`;
+    document.getElementById("explanation").innerHTML = explanation;
+}
+
+function calculateNewLimit(relationshipMonths, limit, settledAmount, outstandingAmount, latePayments, referenceNotes) {
+    const baseLimit = limit; // Limite base igual ao atual
+    const monthlyIncrease = 5000; // Aumento mensal
+    const latePaymentPenalty = 10000; // Penalidade por dia de atraso
+    const penaltyMultiplier = 0.2; // Multiplicador da penalidade por atraso
+    const referenceNotesReduction = 0.757; // Redução de 75.7%
+    const relationshipReduction = 0.65; // Redução de 65%
+
+    // Calcular o aumento com base no tempo de relacionamento
+    const relationshipIncrease = monthlyIncrease * (relationshipMonths * (1 - relationshipReduction));
+
+    // Calcular penalidade por atraso nos pagamentos com um limite máximo de 100% do limite base
+    const latePaymentPenaltyTotal = Math.min(latePayments * latePaymentPenalty * penaltyMultiplier, baseLimit);
+
+    // Calcular o novo limite considerando valores liquidados, em aberto, notas de referência e penalidade por atraso
+    let newLimit = baseLimit + relationshipIncrease + settledAmount - outstandingAmount - latePaymentPenaltyTotal + (referenceNotes * (1 - referenceNotesReduction));
+
+    // O novo limite não pode ser inferior ao limite atual
+    newLimit = Math.max(newLimit, baseLimit);
+
+    // Garantir que o novo limite seja pelo menos 80% do valor atual
+    const minimumLimit = baseLimit * 0.8;
+    newLimit = Math.max(newLimit, minimumLimit);
+
+    // Construir explicação
+    const explanation = `O novo limite foi calculado considerando um aumento mensal de R$ ${monthlyIncrease.toFixed(2)} por mês de relacionamento.
+                        \nRedução no Tempo de Relacionamento: ${relationshipReduction * 100}%
+                        \nPenalidade por Atraso nos Pagamentos: R$ ${latePaymentPenaltyTotal.toFixed(2)}
+                        \nNotas de Referência: R$ ${referenceNotes.toFixed(2)}
+                        \n\nLimite Base: R$ ${baseLimit.toFixed(2)}
+                        \nAumento por Relacionamento: R$ ${relationshipIncrease.toFixed(2)}
+                        \nValor Liquidado: R$ ${settledAmount.toFixed(2)}
+                        \nValor em Aberto: R$ ${outstandingAmount.toFixed(2)}`;
+
+    // Retornar o novo limite e a explicação
+    return { newLimit: newLimit.toFixed(2), explanation };
+}
+
+function formatCurrency(value) {
+    // Formatar o valor no formato desejado
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ".").replace(".", ",");
+}
+
+    </script>
+</body>
+</html>
