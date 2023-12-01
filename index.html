@@ -74,8 +74,7 @@ button:hover {
 <body>
     <div class="calculator-container">
         <!-- Adicione a logo aqui -->
-         <img src="https://i.imgur.com/71IUGfp.png" alt="Logo da Refricril" class="logo">
-
+        <img src="https://i.imgur.com/71IUGfp.png" alt="Logo da Refricril" class="logo">
 
         <h2>Calculadora Novo Limite Refricril</h2>
         
@@ -174,16 +173,7 @@ function calculateNewLimit(relationshipMonths, limit, settledAmount, outstanding
     const minimumLimit = baseLimit * 0.8;
     newLimit = Math.max(newLimit, minimumLimit);
 
-    // Construir explicação
-    const explanation = `O novo limite foi calculado considerando um aumento mensal de R$ ${monthlyIncrease.toFixed(2)} por mês de relacionamento.
-                        \nRedução no Tempo de Relacionamento: ${relationshipReduction * 100}%
-                        \nPenalidade por Atraso nos Pagamentos: R$ ${latePaymentPenaltyTotal.toFixed(2)}
-                        \nNotas de Referência: R$ ${referenceNotes.toFixed(2)}
-                        \n\nLimite Base: R$ ${baseLimit.toFixed(2)}
-                        \nAumento por Relacionamento: R$ ${relationshipIncrease.toFixed(2)}
-                        \nValor Liquidado: R$ ${settledAmount.toFixed(2)}
-                        \nValor em Aberto: R$ ${outstandingAmount.toFixed(2)}`;
-
+   
     // Retornar o novo limite e a explicação
     return { newLimit: newLimit.toFixed(2), explanation };
 }
