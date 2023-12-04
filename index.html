@@ -115,38 +115,23 @@ button:hover {
     </div>
 
     <script>
-       function calculateLimit() {
-    // Obter os valores dos inputs
-    const relationshipMonths = parseInt(document.getElementById("relationshipMonths").value.replace(",", "."));
-    const limit = parseFloat(document.getElementById("limit").value.replace(",", "."));
-    const settledAmount = parseFloat(document.getElementById("settledAmount").value.replace(",", "."));
-    const outstandingAmount = parseFloat(document.getElementById("outstandingAmount").value.replace(",", "."));
-    const latePayments = parseInt(document.getElementById("latePayments").value.replace(",", "."));
-    const referenceNotes = parseFloat(document.getElementById("referenceNotes").value.replace(",", "."));
+       document.addEventListener("DOMContentLoaded", function () {
+    // Adicionar ouvinte de evento para o evento 'input' em cada campo de input
+    const inputFields = document.querySelectorAll("input");
+    inputFields.forEach(function (input) {
+        input.addEventListener("input", function () {
+            // Formatar o valor no formato desejado
+            this.value = formatCurrencyInput(this.value);
+        });
+    });
+});
 
-    // Calcular o novo limite
-    const { newLimit, explanation } = calculateNewLimit(relationshipMonths, limit, settledAmount, outstandingAmount, latePayments, referenceNotes);
+function formatCurrencyInput(value) {
+    // Remover caracteres não numéricos
+    const numericValue = value.replace(/[^\d]/g, "");
 
-    // Exibir o resultado e explicação
-    document.getElementById("result").innerHTML = `Novo Limite: R$ ${formatCurrency(newLimit)}`;
-    document.getElementById("explanation").innerHTML = explanation;
-}
-
-function calculateLimit() {
-    // Obter os valores dos inputs
-    const relationshipMonths = parseInt(document.getElementById("relationshipMonths").value.replace(",", "."));
-    const limit = parseFloat(document.getElementById("limit").value.replace(",", "."));
-    const settledAmount = parseFloat(document.getElementById("settledAmount").value.replace(",", "."));
-    const outstandingAmount = parseFloat(document.getElementById("outstandingAmount").value.replace(",", "."));
-    const latePayments = parseInt(document.getElementById("latePayments").value.replace(",", "."));
-    const referenceNotes = parseFloat(document.getElementById("referenceNotes").value.replace(",", "."));
-
-    // Calcular o novo limite
-    const { newLimit, explanation } = calculateNewLimit(relationshipMonths, limit, settledAmount, outstandingAmount, latePayments, referenceNotes);
-
-    // Exibir o resultado e explicação
-    document.getElementById("result").innerHTML = `Novo Limite: R$ ${formatCurrency(newLimit)}`;
-    document.getElementById("explanation").innerHTML = explanation;
+    // Formatar o valor no formato desejado
+    return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ".").replace(/^0+/, '') || "0";
 }
 
 function calculateNewLimit(relationshipMonths, limit, settledAmount, outstandingAmount, latePayments, referenceNotes) {
@@ -173,16 +158,36 @@ function calculateNewLimit(relationshipMonths, limit, settledAmount, outstanding
     const minimumLimit = baseLimit * 0.8;
     newLimit = Math.max(newLimit, minimumLimit);
 
-   
+    // Multiplicar o resultado por 10
+    newLimit *= 10;
+
+    
+
     // Retornar o novo limite e a explicação
-    return { newLimit: newLimit.toFixed(2), explanation };
+    return { newLimit: formatCurrency(newLimit), explanation };
 }
 
 function formatCurrency(value) {
     // Formatar o valor no formato desejado
-    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ".").replace(".", ",");
+    return parseFloat(value).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
+function calculateLimit() {
+    // Obter os valores dos inputs
+    const relationshipMonths = parseInt(document.getElementById("relationshipMonths").value.replace(",", "."));
+    const limit = parseFloat(document.getElementById("limit").value.replace(",", "."));
+    const settledAmount = parseFloat(document.getElementById("settledAmount").value.replace(",", "."));
+    const outstandingAmount = parseFloat(document.getElementById("outstandingAmount").value.replace(",", "."));
+    const latePayments = parseInt(document.getElementById("latePayments").value.replace(",", "."));
+    const referenceNotes = parseFloat(document.getElementById("referenceNotes").value.replace(",", "."));
+
+    // Calcular o novo limite
+    const { newLimit, explanation } = calculateNewLimit(relationshipMonths, limit, settledAmount, outstandingAmount, latePayments, referenceNotes);
+
+    // Exibir o resultado e explicação
+    document.getElementById("result").innerHTML = `Novo Limite: ${newLimit}`;
+    
+}
     </script>
 </body>
 </html>
