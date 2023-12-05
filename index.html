@@ -115,7 +115,7 @@ button:hover {
     </div>
 
     <script>
-       document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
     // Adicionar ouvinte de evento para o evento 'input' em cada campo de input
     const inputFields = document.querySelectorAll("input");
     inputFields.forEach(function (input) {
@@ -136,22 +136,23 @@ function formatCurrencyInput(value) {
 
 function calculateNewLimit(relationshipMonths, limit, settledAmount, outstandingAmount, latePayments, referenceNotes) {
     const baseLimit = limit; // Limite base igual ao atual
-    const monthlyIncrease = 5000; // Aumento mensal
-    const latePaymentPenalty = 10000; // Penalidade por dia de atraso
-    const penaltyMultiplier = 0.2; // Multiplicador da penalidade por atraso
-    const referenceNotesReduction = 0.757; // Redução de 75.7%
-    const relationshipReduction = 0.65; // Redução de 65%
+    const monthlyIncrease = 900; // Aumento mensal
+    const latePaymentPenalty = 3000; // Penalidade por dia de atraso
+    const penaltyMultiplier = 20; // Multiplicador da penalidade por atraso
+    const referenceNotesReduction = 57; // Redução de 57%
+    const relationshipReduction = 65; // Redução de 65%
 
-    // Calcular o aumento com base no tempo de relacionamento
-    const relationshipIncrease = monthlyIncrease * (relationshipMonths * (1 - relationshipReduction));
+    // Calcular o aumento com base nos valores de notas de referência e tempo de relacionamento
+    const referenceNotesIncrease = referenceNotes * (1 - referenceNotesReduction / 100);
+    const relationshipIncrease = (relationshipMonths / 12) * monthlyIncrease * (1 - relationshipReduction / 100);
 
     // Calcular penalidade por atraso nos pagamentos com um limite máximo de 100% do limite base
     const latePaymentPenaltyTotal = Math.min(latePayments * latePaymentPenalty * penaltyMultiplier, baseLimit);
 
     // Calcular o novo limite considerando valores liquidados, em aberto, notas de referência e penalidade por atraso
-    let newLimit = baseLimit + relationshipIncrease + settledAmount - outstandingAmount - latePaymentPenaltyTotal + (referenceNotes * (1 - referenceNotesReduction));
+    let newLimit = baseLimit + relationshipIncrease + settledAmount - outstandingAmount - latePaymentPenaltyTotal + referenceNotesIncrease;
 
-    // O novo limite não pode ser inferior ao limite atual
+    // Garantir que o novo limite não seja inferior ao limite atual
     newLimit = Math.max(newLimit, baseLimit);
 
     // Garantir que o novo limite seja pelo menos 80% do valor atual
@@ -159,12 +160,10 @@ function calculateNewLimit(relationshipMonths, limit, settledAmount, outstanding
     newLimit = Math.max(newLimit, minimumLimit);
 
     // Multiplicar o resultado por 10
-    newLimit *= 10;
-
-    
+    newLimit *= 100;
 
     // Retornar o novo limite e a explicação
-    return { newLimit: formatCurrency(newLimit), explanation };
+    return { newLimit: formatCurrency(newLimit), explanation: null };
 }
 
 function formatCurrency(value) {
@@ -186,7 +185,6 @@ function calculateLimit() {
 
     // Exibir o resultado e explicação
     document.getElementById("result").innerHTML = `Novo Limite: ${newLimit}`;
-    
 }
     </script>
 </body>
