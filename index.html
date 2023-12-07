@@ -134,22 +134,23 @@ function calculateNewLimit(relationshipMonths, limit, settledAmount, outstanding
     const monthlyIncrease = 0.07;
     const latePaymentPenalty = 0.4;
     const penaltyMultiplier = 20;
-    const referenceNotesIncrease = referenceNotes * 0.30; 
+    const referenceNotesIncrease = referenceNotes * 0.30;
     const relationshipIncrease = Math.min(1, relationshipMonths / 24) * monthlyIncrease; // Aumento proporcional, no máximo 1
 
     const latePaymentPenaltyTotal = Math.min(latePayments * latePaymentPenalty * penaltyMultiplier, baseLimit);
 
     let newLimit = baseLimit * (1 + relationshipIncrease) + settledAmount - outstandingAmount - latePaymentPenaltyTotal + referenceNotesIncrease;
 
+    // Garantir que o novo limite não seja inferior ao limite atual
     newLimit = Math.max(newLimit, baseLimit);
 
     const minimumLimit = baseLimit * 0.8;
+    // Garantir que o novo limite seja pelo menos 80% do valor atual
     newLimit = Math.max(newLimit, minimumLimit);
 
-    return formatCurrency(newLimit * 500);
+    // Usar toFixed para limitar a quantidade de casas decimais
+    return formatCurrency((newLimit * 400).toFixed(2));
 }
-
-
 
 function formatCurrency(value) {
     return parseFloat(value).toLocaleString('pt-BR', {
@@ -170,6 +171,7 @@ function calculateLimit() {
 
     document.getElementById("result").innerHTML = `Novo Limite: ${newLimit}`;
 }
+
 
     </script>
 </body>
