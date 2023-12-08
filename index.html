@@ -150,7 +150,7 @@ function calculateNewLimit(relationshipMonths, limit, settledAmount, outstanding
     newLimit = Math.max(newLimit, minimumLimit);
 
     // Usar toFixed para limitar a quantidade de casas decimais
-    return formatCurrency((newLimit * 0.21).toFixed(2));
+    return formatCurrency((newLimit * 0.20).toFixed(2));
 }
 
 function formatCurrency(value) {
