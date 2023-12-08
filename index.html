@@ -133,7 +133,7 @@ function formatCurrencyInput(value) {
 function calculateNewLimit(relationshipMonths, limit, settledAmount, outstandingAmount, latePayments, referenceNotes) {
     const baseLimit = limit;
     const monthlyIncrease = 0.07;
-    const latePaymentPenalty = 200000;
+    const latePaymentPenalty = 200;
     const penaltyMultiplier = 20;
     const referenceNotesIncrease = referenceNotes * 0.30;
     const relationshipIncrease = Math.min(1, relationshipMonths / 24) * monthlyIncrease; // Aumento proporcional, no máximo 1
@@ -150,7 +150,7 @@ function calculateNewLimit(relationshipMonths, limit, settledAmount, outstanding
     newLimit = Math.max(newLimit, minimumLimit);
 
     // Usar toFixed para limitar a quantidade de casas decimais
-    return formatCurrency((newLimit * 0.3).toFixed(2));
+    return formatCurrency((newLimit * 0.27).toFixed(2));
 }
 
 function formatCurrency(value) {
