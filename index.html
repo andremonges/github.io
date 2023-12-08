@@ -136,11 +136,11 @@ function calculateNewLimit(relationshipMonths, limit, settledAmount, outstanding
     const latePaymentPenalty = 200;
     const penaltyMultiplier = 20;
     const referenceNotesIncrease = referenceNotes * 0.30;
-    const relationshipIncrease = Math.min(1, relationshipMonths / 24) * monthlyIncrease; // Aumento proporcional, no máximo 1
+    const relationshipIncrease = Math.min(1, relationshipMonths / 28) * monthlyIncrease; // Aumento proporcional, no máximo 1
 
     const latePaymentPenaltyTotal = Math.min(latePayments * latePaymentPenalty * penaltyMultiplier, baseLimit);
 
-    let newLimit = baseLimit * (1 + relationshipIncrease) + settledAmount - outstandingAmount - latePaymentPenaltyTotal + referenceNotesIncrease;
+    let newLimit = baseLimit * (0,1 + relationshipIncrease) + settledAmount - outstandingAmount - latePaymentPenaltyTotal + referenceNotesIncrease;
 
     // Garantir que o novo limite não seja inferior ao limite atual
     newLimit = Math.max(newLimit, baseLimit);
@@ -150,7 +150,7 @@ function calculateNewLimit(relationshipMonths, limit, settledAmount, outstanding
     newLimit = Math.max(newLimit, minimumLimit);
 
     // Usar toFixed para limitar a quantidade de casas decimais
-    return formatCurrency((newLimit * 0.27).toFixed(2));
+    return formatCurrency((newLimit * 0.21).toFixed(2));
 }
 
 function formatCurrency(value) {
@@ -159,7 +159,6 @@ function formatCurrency(value) {
         currency: 'BRL'
     });
 }
-
 function calculateLimit() {
     const relationshipMonths = parseInt(document.getElementById("relationshipMonths").value.replace(",", "."));
     const limit = parseFloat(document.getElementById("limit").value.replace(",", "."));
@@ -172,8 +171,6 @@ function calculateLimit() {
 
     document.getElementById("result").innerHTML = `Novo Limite: ${newLimit}`;
 }
-
-
     </script>
 </body>
 </html>
