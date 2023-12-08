@@ -135,7 +135,7 @@ function calculateNewLimit(relationshipMonths, limit, settledAmount, outstanding
     const monthlyIncrease = 0.07;
     const latePaymentPenalty = 200;
     const penaltyMultiplier = 20;
-    const referenceNotesIncrease = referenceNotes * 1400;
+    const referenceNotesIncrease = referenceNotes * 2400;
     const relationshipIncrease = Math.min(1, relationshipMonths / 28) * monthlyIncrease; // Aumento proporcional, no máximo 1
 
     const latePaymentPenaltyTotal = Math.min(latePayments * latePaymentPenalty * penaltyMultiplier, baseLimit);
