@@ -129,10 +129,11 @@ function formatCurrencyInput(value) {
     return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ".").replace(/^0+/, '') || "0";
 }
 
+
 function calculateNewLimit(relationshipMonths, limit, settledAmount, outstandingAmount, latePayments, referenceNotes) {
     const baseLimit = limit;
     const monthlyIncrease = 0.07;
-    const latePaymentPenalty = 0.4;
+    const latePaymentPenalty = 200;
     const penaltyMultiplier = 20;
     const referenceNotesIncrease = referenceNotes * 0.30;
     const relationshipIncrease = Math.min(1, relationshipMonths / 24) * monthlyIncrease; // Aumento proporcional, no máximo 1
@@ -149,7 +150,7 @@ function calculateNewLimit(relationshipMonths, limit, settledAmount, outstanding
     newLimit = Math.max(newLimit, minimumLimit);
 
     // Usar toFixed para limitar a quantidade de casas decimais
-    return formatCurrency((newLimit * 400).toFixed(2));
+    return formatCurrency((newLimit * 300).toFixed(2));
 }
 
 function formatCurrency(value) {
@@ -162,7 +163,7 @@ function formatCurrency(value) {
 function calculateLimit() {
     const relationshipMonths = parseInt(document.getElementById("relationshipMonths").value.replace(",", "."));
     const limit = parseFloat(document.getElementById("limit").value.replace(",", "."));
-    const settledAmount = parseFloat(document.getElementById("settledAmount").value.replace(",", "."));
+    const settledAmount = parseFloat(document.getElementById("settledAmount").value.replace(/\./g, "").replace(",", "."));
     const outstandingAmount = parseFloat(document.getElementById("outstandingAmount").value.replace(",", "."));
     const latePayments = parseInt(document.getElementById("latePayments").value.replace(",", "."));
     const referenceNotes = parseFloat(document.getElementById("referenceNotes").value.replace(",", "."));
