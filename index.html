@@ -68,7 +68,6 @@ button:hover {
 }
 
     </style>
-    </style>
     <title>Calculadora Novo Limite Refricril</title>
 </head>
 <body>
@@ -99,7 +98,7 @@ button:hover {
         </div>
 
         <div class="input-group">
-            <label for="latePayments">Tempo de Atraso nos Pagamentos (dias): </label>
+            <label for="latePayments">Valor pago em Atraso (R$): </label>
             <input type="text" id="latePayments" pattern="[0-9]+([,.][0-9]+)?" required>
         </div>
 
@@ -115,7 +114,7 @@ button:hover {
     </div>
 
     <script>
- document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const inputFields = document.querySelectorAll("input");
     inputFields.forEach(function (input) {
         input.addEventListener("input", function () {
@@ -133,14 +132,14 @@ function formatCurrencyInput(value) {
 function calculateNewLimit(relationshipMonths, limit, settledAmount, outstandingAmount, latePayments, referenceNotes) {
     const baseLimit = limit;
     const monthlyIncrease = 0.07;
-    const latePaymentPenalty = 200;
-    const penaltyMultiplier = 20;
-    const referenceNotesIncrease = referenceNotes * 2400;
+    const latePaymentPenaltyRate = 0.005; // Taxa de penalidade pelo atraso (ajuste conforme necessário)
+    const referenceNotesIncrease = referenceNotes * 1999;
     const relationshipIncrease = Math.min(1, relationshipMonths / 28) * monthlyIncrease; // Aumento proporcional, no máximo 1
 
-    const latePaymentPenaltyTotal = Math.min(latePayments * latePaymentPenalty * penaltyMultiplier, baseLimit);
+    // Cálculo da penalidade pelo atraso
+    const latePaymentPenalty = latePayments * latePaymentPenaltyRate * baseLimit;
 
-    let newLimit = baseLimit * (0,1 + relationshipIncrease) + settledAmount - outstandingAmount - latePaymentPenaltyTotal + referenceNotesIncrease;
+    let newLimit = baseLimit * (1 + relationshipIncrease) + settledAmount - outstandingAmount - latePaymentPenalty + referenceNotesIncrease;
 
     // Garantir que o novo limite não seja inferior ao limite atual
     newLimit = Math.max(newLimit, baseLimit);
@@ -164,13 +163,15 @@ function calculateLimit() {
     const limit = parseFloat(document.getElementById("limit").value.replace(",", "."));
     const settledAmount = parseFloat(document.getElementById("settledAmount").value.replace(/\./g, "").replace(",", "."));
     const outstandingAmount = parseFloat(document.getElementById("outstandingAmount").value.replace(",", "."));
-    const latePayments = parseInt(document.getElementById("latePayments").value.replace(",", "."));
+    const latePayments = parseFloat(document.getElementById("latePayments").value.replace(/\./g, "").replace(",", "."));
     const referenceNotes = parseFloat(document.getElementById("referenceNotes").value.replace(",", "."));
 
     const newLimit = calculateNewLimit(relationshipMonths, limit, settledAmount, outstandingAmount, latePayments, referenceNotes);
 
     document.getElementById("result").innerHTML = `Novo Limite: ${newLimit}`;
 }
+
+
     </script>
 </body>
 </html>
